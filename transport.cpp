@@ -1,10 +1,13 @@
+#include <iostream>
+using namespace std;
+
 class Transportation{
     private:
         char companyName[10];
         int num;
     public:
         Transportation(const char* companyName, int num);
-        virtual char* getCompanyName() = 0;
+        char* getCompanyName();
         virtual int getFare() = 0;
 };
 
@@ -29,21 +32,26 @@ class TransportaionList{
 class Taxi : public Transportation
 {
     private:
-        char companyName[10];
         int totalDistance;
     public:
         Taxi(const char* companyName, int totalDistance);
-        virtual char* getComanyName() const; 
         virtual int getFare() const;//총 운행거리와 단위거리 당 요금의 곱 반환
 };
 
 class Bus : public Transportation
 {
     private:
-        char companyName[10];
         int numBoarding;
     public:
         Bus(const char* companyName, int numBoarding);
-        virtual char* getCompanyName() const; 
         virtual int getFare() const;//탑승회수와 기본요금의 곱 반환
+};
+
+class CradeitCard{
+    public:
+        int getTotalFare(Transportation** ptrTP, int num){
+            int total = 0;
+           for(int i=0;i<num;++i)total+=ptrTP[i]->getFare();
+           return total;
+        }
 };
